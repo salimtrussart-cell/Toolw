@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Key App</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #1e1e2f; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .container { background: #2c2c3f; padding: 30px; border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.5); }
+        input, button { padding: 10px; margin: 5px 0; border-radius: 6px; border: none; }
+        button { background: #ff6f61; color: #fff; cursor: pointer; }
+        button:hover { background: #ff4b3e; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Key App</h1>
+        <input type="text" id="username" placeholder="Nom d'utilisateur">
+        <button onclick="generateKey()">Générer une clé</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        async function generateKey() {
+            const username = document.getElementById('username').value;
+            const res = await fetch('/generateKey', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username })
+            });
+            const data = await res.json();
+            document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+        }
+    </script>
+</body>
+</html>
